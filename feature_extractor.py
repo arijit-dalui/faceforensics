@@ -79,15 +79,10 @@ for folder in tqdm(os.listdir("./frames/")):
 hogArray_np = np.array(hogArray)
 
 
-# setup PCA for dimensionality reduction
-pca = PCA(n_components=NUM_FEATURES)
-reduced_features = pca.fit_transform(hogArray_np)
-features = reduced_features.tolist()
-
 
 # Create a container to hold data to be saved into csv
 csvData = []
-for id, line in enumerate(features):
+for id, line in enumerate(hogArray_np.tolist()):
     newImg = line
 
     # Prepend the category of each image to
@@ -98,7 +93,7 @@ for id, line in enumerate(features):
 
 
 # Save the csv file
-with open('Features.csv', 'w') as csvFile:
+with open('Features.csv', 'w' ,newline='') as csvFile:
     writer = csv.writer(csvFile)
     writer.writerows(csvData)
 
